@@ -23,6 +23,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 
 * [Installation](#installation)
 * [Usage](#usage)
+* [Deployment](#deployment)
 * [Walkthrough Video](#walkthrough-video)
 * [Contributing](#contributing)
 * [Tests](#tests)
@@ -74,6 +75,18 @@ To set up and run this project on your local machine, follow these steps:
 4. Click on any city in the search history to view its weather data again.
 5. Delete a city from the search history if needed.
 
+## Deployment
+
+This project is deployed on [Render](https://render.com/) to make it accessible online.
+
+### Live Application
+You can access the deployed SkyWatch application here:  
+🔗 **[SkyWatch Live Deployment](https://your-app-name.onrender.com)**  
+
+### How Deployment Works
+- The backend (server) is deployed as a **Render Web Service**.
+- The frontend (client) is deployed as a **Render Static Site**.
+- The application is automatically updated with each new commit to the GitHub repository.
 
 ## Walkthrough Video
 
@@ -97,6 +110,7 @@ There are currently no automated tests for this project
 
 * [OpenWeather API Documentation](https://openweathermap.org/api)
 * [Project Repository](https://github.com/alexis-menendez/SkyWatch)
+* [Live Deployment](https://your-app-name.onrender.com)
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
 
 ## Acknowledgements
