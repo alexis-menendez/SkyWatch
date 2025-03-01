@@ -32,6 +32,13 @@
 7.  **BONUS:** Define a removeCity method that removes a city from the searchHistory.json file
 
 
+## **SkyWatch > Server > src > service > Service.ts**
+1. Serve static files of entire client dist folder
+2. Implement middleware for parsing JSON and urlencoded form data
+3. Implement middleware to connect the routes
+4. Start the server on the port
+
+
 ## **SkyWatch > Server > src > service > weatherService.ts**
 
 1. Define an interface for the Coordinates object
