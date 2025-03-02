@@ -16,7 +16,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 
 * **Front-End:** HTML, CSS, Bootstrap, TypeScript, Vite
 * **Back-End:** Node.js, Express, TypeScript
-* **API Integration:** OpenWeather API
+* **API Integration:** OpenWeather API (Geocoder, 5 Day Forecast)
 * **Storage:** JSON-based search history file
 
 ## Table of Contents
