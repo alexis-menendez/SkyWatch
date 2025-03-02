@@ -11,9 +11,13 @@ router.post('/', (/* req, res */) => {
 });
 
 // TODO: GET search history
-router.get('/history', async (/* req, res */) => {}); /* CHANGE: COMMENTED OUT [req, res] AT COPILOTS DEBUG SUGGESTION */
+router.get('/history', async (_req, res) => {
+  res.json({ message: "Weather history is working!" });
+}); /* CHANGE: ADDED RESPONSE FOR DEBUGGING */
 
 // * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (/* req, res */) => {}); /* CHANGE: COMMENTED OUT [req, res] AT COPILOTS DEBUG SUGGESTION */
+router.delete('/history/:id', async (_req, res) => {
+  res.json({ message: "Delete request received!" });
+}); /* CHANGE: ADDED RESPONSE FOR DEBUGGING */
 
 export default router;
