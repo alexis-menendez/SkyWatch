@@ -25,6 +25,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 * [Usage](#usage)
 * [Deployment](#deployment)
 * [Walkthrough Video](#walkthrough-video)
+* [How It Works](#how-it-works)
 * [Contributing](#contributing)
 * [Tests](#tests)
 * [Documentation](#documentation)
@@ -57,14 +58,21 @@ To set up and run this project on your local machine, follow these steps:
 	  * API_KEY=your_openweather_api_key
 
 6. Build the project:
-	* In the terminal, run:
-	  * npm rub build
+	* In the terminal, navigate to the server directory:
+	* cd /c/project-directory/server
+ 	* In the terminal, run:
+	  * npm run build
 	* This compiles TypeScript files and prepares the project for execution.
 
 7. Run the Application:
-	* In the terminal, run:
+	* In the terminal, still in the server directory run:
 	  * npm start
-	* This starts both the client and server.
+	  * This starts the server & client.
+	* In a second terminal, navigate to the client directory:
+  	  * cd /c/project-directory/client
+   	* In a second terminal, run:
+	  * npm run dev
+    	  * This opens the client in the browser.
 
 ## Usage
 
@@ -91,6 +99,16 @@ You can access the deployed SkyWatch application here:
 ## Walkthrough Video
 
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
+
+## How It Works
+
+- In the browser, when you click the "Search" button, the **Client** grabs the city name you typed and calls the **Backend Server**
+- The **Server** grabs the city name from the **Client** and uses it to call the **[Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)**  
+- The **[Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)** converts the city name into latitude and logitude data
+- The **Server** grabs the latitude and logitude data from the **[Open Weather Geocoder API](https://openweathermap.org/api/geocoding-api)** and uses it to call the **[Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)**
+- The **Server** grabs the forecast data from the **[Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)**
+- The **Server** saves the data in json storage
+- The **Server** sends the data to frontend
 
 ## Contributing
 
