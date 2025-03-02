@@ -25,7 +25,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 * [Usage](#usage)
 * [Deployment](#deployment)
 * [Walkthrough Video](#walkthrough-video)
-* [How It Works](#how-it-works)
+* [API Calls](#api-calls)
 * [Contributing](#contributing)
 * [Tests](#tests)
 * [Documentation](#documentation)
@@ -100,7 +100,9 @@ You can access the deployed SkyWatch application here:
 
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
 
-## How It Works
+## API Calls
+
+When a user searches for a city, the application follows this process to retrieve and display weather data:
 
 - In the browser, when you click the "Search" button, the **Client** grabs the city name you typed and calls the **Backend Server**
 - The **Server** grabs the city name from the **Client** and uses it to call the **[Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)**  
@@ -127,6 +129,8 @@ There are currently no automated tests for this project
 ## Documentation
 
 * [OpenWeather API Documentation](https://openweathermap.org/api)
+* [Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)
+* [Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)
 * [Project Repository](https://github.com/alexis-menendez/SkyWatch)
 * [Live Deployment](https://your-app-name.onrender.com)
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
