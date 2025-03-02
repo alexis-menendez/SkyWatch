@@ -57,10 +57,11 @@ class WeatherService {
     };
   }
 
-  // Create buildGeocodeQuery method
-  private buildGeocodeQuery(city: string): string {
-    return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${this.apiKey}`;
-  }
+  // COMMENT OUT [buildGeocodeQuery method] AT COPILOTS DEBUG SUGGESTION
+  // private buildGeocodeQuery(city: string): string {
+  //   return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${this.apiKey}`;
+  // }
+
 
   // Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
@@ -100,15 +101,15 @@ class WeatherService {
     );
   }
 
-  // Complete buildForecastArray method
-  private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
-    return weatherData.map((data) => new Weather(
-      data.main.temp,
-      data.main.humidity,
-      data.wind.speed,
-      data.weather[0].description
-    ));
-  }
+  // COMMENT OUT [buildForecastArray method] AT COPILOTS DEBUG SUGGESTION
+  // private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
+  //   return weatherData.map((data) => new Weather(
+  //     data.main.temp,
+  //     data.main.humidity,
+  //     data.wind.speed,
+  //     data.weather[0].description
+  //   ));
+  // }
 
   // Complete getWeatherForCity method
   async getWeatherForCity(city: string): Promise<Weather | null> {
