@@ -1,6 +1,3 @@
-# API Key
-.env
-
 # Logs
 logs
 *.log
