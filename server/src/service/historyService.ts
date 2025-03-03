@@ -4,13 +4,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
 
-// COMPLETEDTODO: Resolve __dirname & __filename in ES module scope
+// COMPLETED: Resolve __dirname & __filename in ES module scope
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const historyFilePath = path.join(__dirname, '../../db/searchHistory.json'); // Define the path to the searchHistory.json file
 
-// COMPLETEDTODO: Define a City class with name and id properties
+// COMPLETED: Define a City class with name and id properties
 class City {
   id: string;
   name: string;
@@ -21,9 +21,9 @@ class City {
   }
 }
 
-// COMPLETEDTODO: Complete the HistoryService class
+// COMPLETED: Complete the HistoryService class
 class HistoryService { // Define the HistoryService class
-  // COMPLETEDTODO: Define a read method that reads from the searchHistory.json file
+  // COMPLETED: Define a read method that reads from the searchHistory.json file
   private async read(): Promise<City[]> { // Define the read method
     try {
       const data = await fs.readFile(historyFilePath, 'utf-8');
@@ -38,7 +38,7 @@ class HistoryService { // Define the HistoryService class
     }
   }
 
-  // COMPLETEDTODO: Define a write method that writes the updated cities array to the searchHistory.json file
+  // COMPLETED: Define a write method that writes the updated cities array to the searchHistory.json file
   private async write(cities: City[]): Promise<void> { // Define the write method
     try {
       await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2), 'utf-8');
@@ -47,12 +47,12 @@ class HistoryService { // Define the HistoryService class
     }
   }
 
-  // COMPLETEDTODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
+  // COMPLETED: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
   async getCities(): Promise<City[]> { // Define the getCities method
     return await this.read();
   }
 
-  // COMPLETEDTODO Define an addCity method that adds a city to the searchHistory.json file
+  // COMPLETED Define an addCity method that adds a city to the searchHistory.json file
   async addCity(cityName: string): Promise<City> { // Define the addCity method
     const cities = await this.read();
     const newCity = new City(cityName);
@@ -65,7 +65,7 @@ class HistoryService { // Define the HistoryService class
     return newCity;
   }
 
-  // * COMPLETEDTODO: Define a removeCity method that removes a city from the searchHistory.json file
+  // * COMPLETED: Define a removeCity method that removes a city from the searchHistory.json file
   async removeCity(cityId: string): Promise<boolean> { // Define the removeCity method
     let cities = await this.read();
     const initialLength = cities.length;
