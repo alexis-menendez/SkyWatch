@@ -36,12 +36,14 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 
 To set up and run this project on your local machine, follow these steps:
 
-1. Before installing, ensure you have the following installed on your system:
+1. **Dependencies**:
+	Before installing, ensure you have the following installed on your system:
 	* [Node.js](https://nodejs.org/) installed on your system
 	* npm (Comes bundled with Node.js)
 	* TypeScript (Installed as a dependency in this project)
    
-2. Clone the [SkyWatch](https://github.com/alexis-menendez/SkyWatch) repository to your local machine:
+2.  **Clone the Repo**:
+	Clone the [SkyWatch](https://github.com/alexis-menendez/SkyWatch) repository to your local machine:
 	* Open a terminal or command prompt and run:
 	```sh
 	git clone <(https://github.com/alexis-menendez/SkyWatch)>
@@ -53,7 +55,7 @@ To set up and run this project on your local machine, follow these steps:
    cd /c/Bootcamp/GitHub/SkyWatch
    ```
 
-4. **Install dependencies**:
+4. **Install dependencies**: (skip this step if you have already installed the dependencies)
    Run the following command to install all required dependencies for both the client and server:
    ```sh
    npm run install
