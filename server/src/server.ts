@@ -1,17 +1,18 @@
+// Import modules
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-dotenv.config();
+dotenv.config(); // Load local environment variables
 
 // Import the routes
 import routes from './routes/index.js';
 
-const app = express();
+const app = express(); // Create an express application to configure the server
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001; // Define the port for the server
 
-// TODO: Resolve __dirname in ES module scope
+// TODO: Resolve __dirname & __filename in ES module scope
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
