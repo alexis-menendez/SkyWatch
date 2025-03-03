@@ -16,11 +16,6 @@ const app = express(); // Create an express application to configure the server
 // Define the port for the server
 const PORT = process.env.PORT || 3001; 
 
-//Commented out to debug, will remove if debug works
-// Resolve __dirname & __filename in ES module scope
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
 // TODO: Serve static files of entire client dist folder
 app.use(express.json());
 app.use(express.static('../client/dist'));
@@ -33,8 +28,11 @@ try {
 
   console.log('✅ Static file serving middleware initialized successfully.');
 } catch (error) {
+  // 1) Log the error
   console.error('🚨 Error initializing static file serving middleware:', error);
-  throw new Error('❗ Failed to set up static file serving. Check if the "../client/dist" directory exists and is accessible.');
+  // 2) Skip rethrowing the error; do NOT use "throw new Error(...)"
+  console.warn('❗ Static file serving failed. The server will continue without serving static files.');
+  // 3) Proceed: do nothing else so the code keeps running
 }
 
 // TODO: Implement middleware for parsing JSON and urlencoded form data
