@@ -43,36 +43,49 @@ To set up and run this project on your local machine, follow these steps:
    
 2. Clone the [SkyWatch](https://github.com/alexis-menendez/SkyWatch) repository to your local machine:
 	* Open a terminal or command prompt and run:
-	  * git clone <(https://github.com/alexis-menendez/SkyWatch)>
+	```sh
+	git clone <(https://github.com/alexis-menendez/SkyWatch)>
+	```
 
-3. Navigate to the project directory:
-	* cd your-project-folder
+3. **Navigate to the project directory**:
+   Open a terminal or command prompt and navigate to your project directory: (your path may vary)
+   ```sh
+   cd /c/Bootcamp/GitHub/SkyWatch
+   ```
 
-4. Install Dependencies:
-	* Run the following command to install all required dependencies:
-	  * npm run install
-	  * This will install required dependencies for both client and server.
+4. **Install dependencies**:
+   Run the following command to install all required dependencies for both the client and server:
+   ```sh
+   npm run install
+   ```
 
-5. Set up environment variables:
-	* Create a .env file in the server directory and add your OpenWeather API key by running:
-	  * API_KEY=your_openweather_api_key
+5. **Set up environment variables**:
+   Create a `.env` file in the server directory and add your OpenWeather API key:
+   ```sh
+   echo "API_KEY=your_openweather_api_key" > server/.env
+   ```
 
-6. Build the project:
-	* In the terminal, navigate to the server directory:
-	* cd /c/project-directory/server
- 	* In the terminal, run:
-	  * npm run build
-	* This compiles TypeScript files and prepares the project for execution.
+6. **Build the project**:
+   Navigate to the server directory and build the project:
+   ```sh
+   cd server
+   npm run build
+   ```
 
-7. Run the Application:
-	* In the terminal, still in the server directory run:
-	  * npm start
-	  * This starts the server & client.
-	* In a second terminal, navigate to the client directory:
-  	  * cd /c/project-directory/client
-   	* In a second terminal, run:
-	  * npm run dev
-    	  * This opens the client in the browser.
+7. **Run the application**:
+   Start the server:
+   ```sh
+   npm start
+   ```
+
+8. **Run the client**:
+   Open a second terminal, navigate to the client directory, and start the client:
+   ```sh
+   cd /c/Bootcamp/GitHub/SkyWatch/client
+   npm run dev
+   ```
+
+This will start both the server and the client, and you should be able to access your application in the browser.
 
 ## Usage
 
@@ -137,6 +150,7 @@ There are currently no automated tests for this project
 
 ## Acknowledgements
 
+* I enlisted the help of a friend (and former participant of this bootcamp) to help me when I hit snags.
 * I used Github Copilot to help me write the code for this project, primarily its suggestive text feature which enabled me to write code faster.
 * I also used ChatGPT to:
   	* Provide assitance debugging my code. I am happy to provide transcripts of the conversation with ChatGPT upon request.
