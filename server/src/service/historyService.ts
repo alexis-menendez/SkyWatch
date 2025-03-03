@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // define the path to the searchHistory.json file
-const historyFilePath = path.join(__dirname, '../../db/searchHistory.json'); 
+const historyFilePath = path.join(__dirname, '../../db/db.json');
 
 // TODO: Define a City class with name and id properties
 class City {
