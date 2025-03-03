@@ -7,6 +7,7 @@ const router = Router(); // Create an Express router
 
 // TODO: POST Request with city name to retrieve weather data
 router.post('/', async (req, res) => { 
+  
   // TODO: GET weather data from city name
   try {
     const { cityName } = req.body; // Extract city name from the request body
@@ -15,6 +16,7 @@ router.post('/', async (req, res) => {
       console.error('City name is required but was not provided.');
       return res.status(400).json({ error: 'City name is required' });
     }
+    
     // TODO: save city to search history
     // Add city to search history BEFORE checking if weather data exists
     await HistoryService.addCity(cityName); 
