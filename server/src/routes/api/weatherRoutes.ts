@@ -3,7 +3,7 @@ import HistoryService from '../../service/historyService.js'; // import HistoryS
 import WeatherService from '../../service/weatherService.js'; // import WeatherService from '../../service/weatherService.js';
 const router = Router();
 
-// TODO: POST Request with city name to retrieve weather data
+// COMPLETEDTODO: POST Request with city name to retrieve weather data
 router.post('/', async (req, res) => { // define the route handler
   try {
     const { city } = req.body; // extract the city name from the request body
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => { // define the route handler
       return res.status(404).json({ error: 'City not found' });
     }
 
-    // TODO: save city to search history
+    // COMPLETEDTODO: save city to search history
     await HistoryService.addCity(city); // Add city to search history
 
     return res.json(weatherData); // return the weather data
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => { // define the route handler
   }
 });
 
-// TODO: GET search history
+// COMPLETEDTODO: GET search history
 router.get('/history', async (req, res) => { // define the route handler
   try {
     const history = await HistoryService.getCities(); // Fetch stored cities
@@ -36,7 +36,7 @@ router.get('/history', async (req, res) => { // define the route handler
   }
 });
 
-// * BONUS TODO: DELETE city from search history
+// COMPLETEDTODO: DELETE city from search history
 router.delete('/history/:id', async (req, res) => { // define the route handler
   try {
     const success = await HistoryService.removeCity(req.params.id); // Remove city from search history
