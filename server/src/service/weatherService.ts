@@ -27,16 +27,15 @@ class Weather {
 
 // COMPLETED: Complete the WeatherService class
 class WeatherService {
-    // COMPLETED: Define the baseURL and API key
+    // COMPLETED: Define the baseURL and API key, and define the city name properties
   private baseURL: string; // base URL for the OpenWeather API
   private apiKey: string; // API key for the OpenWeather API, loaded from the .env file
+  private cityName: string; // city name property
 
   constructor() {
     this.baseURL = 'https://api.openweathermap.org/data/2.5/';
     this.apiKey = process.env.API_KEY as string;
   }
- 
-  // TODO: Define the city name properties
   
   // COMPLETED: Create fetchLocationData method
   // fetches the location data (lat and long) for a given city name using the OpenWeather Geocoding API
@@ -65,8 +64,11 @@ class WeatherService {
     };
   }
 
-  // TODO: Create buildGeocodeQuery method
-  // private buildGeocodeQuery(): string {}
+  // COMPLETED: Create buildGeocodeQuery method
+  //  method constructs and returns a URL string for the OpenWeather Geocoding API (used to fetch the lat and long data for a given city name)
+  private buildGeocodeQuery(city: string): string {
+    return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${this.apiKey}`;
+  }
 
   // COMPLETED: Create buildWeatherQuery methodc
   // This method extracts the latitude and longitude from the location data
@@ -142,8 +144,19 @@ class WeatherService {
     });
   }
 
-  // TODO: Complete buildForecastArray method
-  // private buildForecastArray(currentWeather: Weather, weatherData: any[]) {}
+  // COMPLETED: Complete buildForecastArray method
+  // This method builds an array of Forecast objects from the weather data, and returns an array of Forecast objects
+  private buildForecastArray(currentWeather: Weather, weatherData: any[]): Forecast[] { // Define the buildForecastArray method
+    return weatherData.map((item: any) => {   // Map over the weather data array
+      return new Forecast(  // Create and return forecast objects
+        item.dt_txt,
+        item.main.temp,
+        item.main.humidity,
+        item.wind.speed,
+        item.weather[0].description
+      );
+    });
+  }
 
   // COMPLETED: Complete getWeatherForCity method
   // This method fetches the current and forecast weather data for a given city
