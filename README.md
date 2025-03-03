@@ -37,7 +37,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 To set up and run this project on your local machine, follow these steps:
 
 1. Before installing, ensure you have the following installed on your system:
-	* [Node.js](https://nodejs.org/) installed on your system
+	* [Node.js](https://nodejs.org/)
 	* npm (Comes bundled with Node.js)
 	* TypeScript (Installed as a dependency in this project)
    
