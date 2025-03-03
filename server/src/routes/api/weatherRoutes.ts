@@ -5,19 +5,15 @@ const router = Router();
 // import WeatherService from '../../service/weatherService.js';
 
 // TODO: POST Request with city name to retrieve weather data
-router.post('/', (/* req, res */) => {
+router.post('/', (req, res) => {
   // TODO: GET weather data from city name
   // TODO: save city to search history
 });
 
 // TODO: GET search history
-router.get('/history', async (_req, res) => {
-  res.json({ message: "Weather history is working!" });
-}); /* CHANGE: ADDED RESPONSE FOR DEBUGGING */
+router.get('/history', async (req, res) => {});
 
 // * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (_req, res) => {
-  res.json({ message: "Delete request received!" });
-}); /* CHANGE: ADDED RESPONSE FOR DEBUGGING */
+router.delete('/history/:id', async (req, res) => {});
 
 export default router;
