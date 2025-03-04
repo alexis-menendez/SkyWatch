@@ -1,8 +1,15 @@
 // Filepath to this file: skywatch/server/src/server.ts
 
+// commented out, was causing errors (see attempted fix below)
+// Import the necessary modules
+// import dotenv from 'dotenv'; // Loads environment variables from a .env file
+// import express from 'express'; // Import the Express framework
+// dotenv.config(); // Initialize dotenv to use environment variables
+
+// attempted fix
 // Import the necessary modules
 import dotenv from 'dotenv'; // Loads environment variables from a .env file
-import express from 'express'; // Import the Express framework
+import express, { Request, Response, NextFunction } from 'express'; // Import Express types
 dotenv.config(); // Initialize dotenv to use environment variables
 
 // Import the routes
@@ -21,22 +28,39 @@ app.use(express.static('../client/dist')); // Serve static files (e.g., frontend
 // TODO: Implement middleware for parsing JSON and urlencoded form data
 app.use(express.urlencoded({ extended: true })); // Middleware to parse form data (URL-encoded data)
 
+// commented out, was causing errors (see attempted fix below)
 // log every incoming request
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
+    // console.info(`Received ${req.method} request at ${req.originalUrl}`);
+    // next();
+  // });
+
+// attempted fix
+// log every incoming request
+app.use((req: Request, res: Response, next: NextFunction) => {
     console.info(`Received ${req.method} request at ${req.originalUrl}`);
     next();
-  });
+});
 
 // TODO: Implement middleware to connect the routes
 app.use(routes); // Use the imported routes to handle incoming requests
 
-// ADDED: Error-handling middleware to log any unhandled errors
-app.use((err, req, res, next) => {
-    console.error(`⚠️ Oops! An error occurred in server routes: ${err.message}`);
+// commented out, was causing errors (see attempted fix below)
+// log any unhandled errors
+// app.use((err, req, res, next) => {
+    // console.error(`⚠️ Oops! An error occurred in server routes: ${err.message}`);
 
     // respond with a 500 error and an error message
-    return res.status(500).send('⚠️ Server error! Something went wrong on our end');
-  });
+    // return res.status(500).send('⚠️ Server error! Something went wrong on our end');
+// });
+
+// attempted fix
+// log any unhandled errors
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+    console.error('Error:', err.message);
+    res.status(500).json({ message: 'Internal Server Error' });
+});
 
 // Start the server on the specified port and log a message when it starts
-app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
+app.listen(PORT, () => 
+    console.log(`Listening: Server is running on: ${PORT}`));
