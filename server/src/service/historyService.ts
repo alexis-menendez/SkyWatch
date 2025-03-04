@@ -15,11 +15,14 @@ class City {
   }
 }
 
-// TODO: Complete the HistoryService class  (OUR CRUD Methods)
+// TODO: Complete the HistoryService class
 class HistoryService {
 
   // TODO: Define a read method that reads from the searchHistory.json file
   private async read() {
+
+    // Log attempt before reading
+    console.info('[INFO] Attempting to read from db.json');
 
     // Read the contents of the JSON file and return it as a string
     return await fs.promises.readFile('./db/db.json', 'utf8');
@@ -28,20 +31,26 @@ class HistoryService {
   // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
   private async write(cities: City[]) {
 
+    // Log attempt before writing
+    console.info('[INFO] Attempting to write to db.json');
+
     // Convert the array of City objects into a JSON string and write to the file
     fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
       if (err) {
         console.log(err);
         return err.message;
       } else {
-        console.log('File written successfully\n');
-        return 'File written successfully';
+        console.log('✅ Success: File written successfully\n');
+        return '✅ Success: File written successfully';
       }
     });
   }
 
   // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
   async getCities(): Promise<City[]> {
+
+    // Log attempt
+    console.info('[INFO] Attempting to retrieve city list from db.json');
 
     // Read the file content
     const data = await this.read();
@@ -52,11 +61,18 @@ class HistoryService {
       return [];
     }
     const citiesArray = JSON.parse(data);
+
+    // ADDED: Log success
+    console.info('✅ Success: Successfully parsed city list from db.json');
+
     return citiesArray;
   }
 
   // TODO: Define an addCity method that adds a city to the searchHistory.json file
   async addCity(city: string) {
+
+  // log attempt
+  console.info(`[INFO] Attempting to add city: "${city}"`);
 
     // Create a new City object with a unique ID
     const tempCity = new City(city, uuidv4());
@@ -69,10 +85,16 @@ class HistoryService {
 
     // Write the updated array back to the file
     this.write(currentCitiesData);
+
+    // log success
+    console.info(`✅ Success: City "${city}" added to db.json`);
   }
 
   // TODO: Define a removeCity method that removes a city from the searchHistory.json file
   async removeCity(id: string) {
+
+    // log attempt
+    console.info(`[INFO] Attempting to remove city with ID: "${id}"`);
 
     // Retrieve the current list of cities
     const currentCitiesData = await this.getCities();
@@ -82,6 +104,9 @@ class HistoryService {
 
     // Write the updated array back to the file
     await this.write(updatedCitiesData);
+
+    // log success
+    console.info(`✅ Success: City with ID "${id}" removed from db.json`);
 
     // Return the updated list of cities
     return updatedCitiesData;
