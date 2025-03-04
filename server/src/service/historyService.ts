@@ -1,82 +1,117 @@
-// import modules
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { v4 as uuidv4 } from 'uuid';
+// Filepath to this file: skywatch/server/src/service/historyService.ts
 
-// COMPLETED: Resolve __dirname & __filename in ES module scope
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Import the necessary modules
+import fs from 'fs'; // File system module for reading and writing files
+import { v4 as uuidv4 } from 'uuid'; // UUID package to generate unique IDs
 
-const historyFilePath = path.join(__dirname, '../../db/searchHistory.json'); // Define the path to the searchHistory.json file
-
-// COMPLETED: Define a City class with name and id properties
+// TODO: Define a City class with name and id properties
 class City {
-  id: string;
-  name: string;
+  name: string; // Name of the city
+  id: string; // Unique identifier for the city
 
-  constructor(name: string) {
-    this.id = uuidv4();
+  constructor(name: string, id: string) {
     this.name = name;
+    this.id = id;
   }
 }
 
-// COMPLETED: Complete the HistoryService class
-class HistoryService { // Define the HistoryService class
-  // COMPLETED: Define a read method that reads from the searchHistory.json file
-  private async read(): Promise<City[]> { // Define the read method
-    try {
-      const data = await fs.readFile(historyFilePath, 'utf-8');
-      return JSON.parse(data) as City[];
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-        await fs.writeFile(historyFilePath, JSON.stringify([]), 'utf-8');
-        return [];
+// TODO: Complete the HistoryService class
+class HistoryService {
+
+  // TODO: Define a read method that reads from the searchHistory.json file
+  private async read() {
+
+    // Log attempt before reading
+    console.info('[INFO] Attempting to read from db.json');
+
+    // Read the contents of the JSON file and return it as a string
+    return await fs.promises.readFile('./db/db.json', 'utf8');
+  }
+
+  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
+  private async write(cities: City[]) {
+
+    // Log attempt before writing
+    console.info('[INFO] Attempting to write to db.json');
+
+    // Convert the array of City objects into a JSON string and write to the file
+    fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
+      if (err) {
+        console.log(err);
+        return err.message;
+      } else {
+        console.log('✅ Success: File written successfully\n');
+        return '✅ Success: File written successfully';
       }
-      console.error('Error reading search history:', error);
+    });
+  }
+
+  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
+  async getCities(): Promise<City[]> {
+
+    // Log attempt
+    console.info('[INFO] Attempting to retrieve city list from db.json');
+
+    // Read the file content
+    const data = await this.read();
+    console.log("Get Cities: ", data); 
+
+    // Convert JSON string to array of City objects
+    if (data === undefined) {
       return [];
     }
+    const citiesArray = JSON.parse(data);
+
+    // ADDED: Log success
+    console.info('✅ Success: Successfully parsed city list from db.json');
+
+    return citiesArray;
   }
 
-  // COMPLETED: Define a write method that writes the updated cities array to the searchHistory.json file
-  private async write(cities: City[]): Promise<void> { // Define the write method
-    try {
-      await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2), 'utf-8');
-    } catch (error) {
-      console.error('Error writing search history:', error);
-    }
+  // TODO: Define an addCity method that adds a city to the searchHistory.json file
+  async addCity(city: string) {
+
+  // log attempt
+  console.info(`[INFO] Attempting to add city: "${city}"`);
+
+    // Create a new City object with a unique ID
+    const tempCity = new City(city, uuidv4());
+
+    // Retrieve the current list of cities
+    const currentCitiesData = await this.getCities(); 
+
+    // Add the new city to the array
+    currentCitiesData.push(tempCity); 
+
+    // Write the updated array back to the file
+    this.write(currentCitiesData);
+
+    // log success
+    console.info(`✅ Success: City "${city}" added to db.json`);
   }
 
-  // COMPLETED: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
-  async getCities(): Promise<City[]> { // Define the getCities method
-    return await this.read();
-  }
+  // TODO: Define a removeCity method that removes a city from the searchHistory.json file
+  async removeCity(id: string) {
 
-  // COMPLETED Define an addCity method that adds a city to the searchHistory.json file
-  async addCity(cityName: string): Promise<City> { // Define the addCity method
-    const cities = await this.read();
-    const newCity = new City(cityName);
+    // log attempt
+    console.info(`[INFO] Attempting to remove city with ID: "${id}"`);
 
-    if (!cities.some(city => city.name.toLowerCase() === cityName.toLowerCase())) {
-      cities.push(newCity);
-      await this.write(cities);
-    }
+    // Retrieve the current list of cities
+    const currentCitiesData = await this.getCities();
 
-    return newCity;
-  }
+    // Filter out the city with the given ID
+    const updatedCitiesData = currentCitiesData.filter(city => city.id !== id);
 
-  // * COMPLETED: Define a removeCity method that removes a city from the searchHistory.json file
-  async removeCity(cityId: string): Promise<boolean> { // Define the removeCity method
-    let cities = await this.read();
-    const initialLength = cities.length;
-    cities = cities.filter(city => city.id !== cityId);
+    // Write the updated array back to the file
+    await this.write(updatedCitiesData);
 
-    if (cities.length < initialLength) {
-      await this.write(cities);
-      return true;
-    }
-    return false;
+    // log success
+    console.info(`✅ Success: City with ID "${id}" removed from db.json`);
+
+    // Return the updated list of cities
+    return updatedCitiesData;
   }
 }
 
-export default new HistoryService(); // Export an instance of the HistoryService class
+// Export an instance of the HistoryService class for use in other parts of the application
+export default new HistoryService();

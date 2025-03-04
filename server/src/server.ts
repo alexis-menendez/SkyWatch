@@ -1,30 +1,42 @@
-// Import modules
-import dotenv from 'dotenv';
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-dotenv.config(); // Load local environment variables
+// Filepath to this file: skywatch/server/src/server.ts
+
+// Import the necessary modules
+import dotenv from 'dotenv'; // Loads environment variables from a .env file
+import express from 'express'; // Import the Express framework
+dotenv.config(); // Initialize dotenv to use environment variables
 
 // Import the routes
-import routes from './routes/index.js';
+import routes from './routes/index.js'; // Import the main router handling all routes
 
-const app = express(); // Create an express application to configure the server
+// Create an Express application instance
+const app = express();
 
-const PORT = process.env.PORT || 3001; // Define the port for the server
+// Define the port number from environment variables or use default (3001)
+const PORT = process.env.PORT || 3001;
 
-// COMPLETED: Resolve __dirname & __filename in ES module scope
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// TODO: Serve static files of entire client dist folder
+app.use(express.json()); // Middleware to parse incoming JSON requests
+app.use(express.static('../client/dist')); // Serve static files (e.g., frontend build files)
 
-// COMPLETED: Serve static files of entire client dist folder
-app.use(express.static(path.resolve(__dirname, '../../client/dist')));
+// TODO: Implement middleware for parsing JSON and urlencoded form data
+app.use(express.urlencoded({ extended: true })); // Middleware to parse form data (URL-encoded data)
 
-// COMPLETED: Implement middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// log every incoming request
+app.use((req, res, next) => {
+    console.info(`Received ${req.method} request at ${req.originalUrl}`);
+    next();
+  });
 
-// COMPLETED: Implement middleware to connect the routes
-app.use(routes);
+// TODO: Implement middleware to connect the routes
+app.use(routes); // Use the imported routes to handle incoming requests
 
-// Start the server on the port
+// ADDED: Error-handling middleware to log any unhandled errors
+app.use((err, req, res, next) => {
+    console.error(`⚠️ Oops! An error occurred in server routes: ${err.message}`);
+
+    // respond with a 500 error and an error message
+    return res.status(500).send('⚠️ Server error! Something went wrong on our end');
+  });
+
+// Start the server on the specified port and log a message when it starts
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
