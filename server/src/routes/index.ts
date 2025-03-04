@@ -8,6 +8,13 @@ const router = Router(); // Create an instance of the Express Router
 import apiRoutes from './api/index.js'; // Handles API-related routes
 import htmlRoutes from './htmlRoutes.js'; // Handles routes for serving HTML pages
 
+// commented out, was causing error
+// Log all incoming requests
+//router.use((req, res, next) => {
+    //console.info(`✅ Success: Received ${req.method} request to: ${req.originalUrl}`);
+    //next();
+  //});
+
 // Log all incoming requests
 router.use((req: Request, res: Response, next: NextFunction) => {
     console.info(`Received ${req.method} request to: ${req.originalUrl}`);
@@ -20,11 +27,22 @@ router.use('/api', apiRoutes);
 // Mount the HTML routes under the root ('/') path
 router.use('/', htmlRoutes);
 
+// commented out, was causing error
+// Error-handling middleware to log any errors
+//router.use((err, req, res, next) => {
+    //console.error('⚠️ Oops! An error occurred in the root routes:', err.message);
+  
+    // Send 500 response code and an error message
+    //res.status(500).json({ error: '⚠️ Server error! Something went wrong on our end' });
+  //});
+
 // Error-handling middleware
 router.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
     console.error(err);
-    res.status(500).send('⚠️ Server error! Something went wrong on our end');
+    res.status(500).send('Internal Server Error');
   });
 
 // Export the router to be used in the main application
 export default router;
+
+{ error: '⚠️ Server error! Something went wrong on our end' });
