@@ -35,7 +35,12 @@ class HistoryService {
     console.info('Attempting to write to db.json');
 
     // Convert the array of City objects into a JSON string and write to the file
-    fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
+    
+    // commented out, was causing errors (see attempted fix below)
+    // fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
+    
+    // attempted fix
+    fs.writeFile('./db/db.json', JSON.stringify(cities), (err: NodeJS.ErrnoException | null) => {
       if (err) {
         console.log(err);
         return err.message;

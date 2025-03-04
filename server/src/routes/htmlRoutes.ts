@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename); // Extracts the directory name from 
 const router = Router();
 
 // TODO: Define route to serve index.html
+
 // commented out, was causing errors (see attempted fix below)
 // router.get('/', (_Request, _Response) => {
 

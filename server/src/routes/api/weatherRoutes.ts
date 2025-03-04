@@ -1,7 +1,7 @@
 // Filepath to this file: skywatch/server/src/routes/api/weatherRoutes.ts
 
 // Import the modules
-import { Router } from 'express';
+import {  Router, Request, Response, _NextFunction } from 'express';
 const router = Router();
 
 // Import the services
@@ -9,7 +9,12 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 // TODO: POST Request with city name to retrieve weather data
-router.post('/', async (req, res) => {
+
+// commented out, was causing errors (see attempted fix below)
+//router.post('/', async (req, res) => {
+
+// attempted fix
+router.post('/', async (req: Request, res: Response) => {
   try {
 
     // TODO: GET weather data from city name
@@ -43,7 +48,12 @@ router.post('/', async (req, res) => {
 });
 
 // TODO: GET search history
-router.get('/history', async (_req, res) => {
+
+// commented out, was causing errors (see attempted fix below)
+// router.get('/history', async (_req, res) => {
+
+// attempted fix
+router.get('/history', async (_req: Request, res: Response) => {
   try {
 
     // Retrieve the list of searched cities from the HistoryService
@@ -63,7 +73,12 @@ router.get('/history', async (_req, res) => {
 });
 
 // TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {
+
+// commented out, was causing errors (see attempted fix below)
+// router.delete('/history/:id', async (req, res) => {
+
+// attempted fix
+router.delete('/history/:id', async (req: Request, res: Response) => {
   try {
 
     // Extract the city ID from the request parameters
