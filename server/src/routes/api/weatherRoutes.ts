@@ -15,11 +15,11 @@ router.post('/', async (req, res) => {
     // TODO: GET weather data from city name
     // Extract the city name from the request body
     const cityName: string = req.body.cityName;
-    console.log("Trying to find weather for city:", cityName);
+    console.log("🌦️ Attempting to retrieve weather data for city:", cityName);
 
     // Validate that a city name was provided
     if (!cityName) {
-      return res.status(400).json({ error: 'City name is required' });
+      return res.status(400).json({ error: '⚠️ Oops! A city name is required to proceed.' });
     }
 
     // Fetch weather data for the given city using the WeatherService
@@ -29,13 +29,16 @@ router.post('/', async (req, res) => {
     // Add the searched city name to the search history
     await HistoryService.addCity(cityName);
 
+    // Log successful retrieval before responding
+    console.info(`🌤️ Saved ${cityName} to search history! Weather data retrieved successfully.: ${cityName}`);
+
     // Return the retrieved weather data as JSON
     return res.json(weatherData);
   } catch (error) {
 
     // Handle errors that may occur during the request
-    console.error('Error retrieving weather data:', error);
-    return res.status(500).json({ error: 'Failed to retrieve weather data' });
+    console.error('❌ Error retrieving weather data:', error);
+    return res.status(500).json({ error: '🌧️ We hit a storm! Unable to retrieve weather data.' });
   }
 });
 
@@ -46,13 +49,16 @@ router.get('/history', async (_req, res) => {
     // Retrieve the list of searched cities from the HistoryService
     const history = await HistoryService.getCities();
 
+        // Log successful retrieval before responding
+        console.info(`🔎 Search history retrieved successfully!`);
+
     // Return the history as JSON
     res.json(history);
   } catch (error) {
 
     // Handle errors that may occur while retrieving the history
-    console.error('Error retrieving search history:', error);
-    res.status(500).json({ error: 'Failed to retrieve search history' });
+    console.error('❌ Error retrieving search history:', error);
+    res.status(500).json({ error: '🌧️ We hit a storm! Unable to retrieve search history' });
   }
 });
 
@@ -65,19 +71,22 @@ router.delete('/history/:id', async (req, res) => {
 
     // Validate that an ID was provided
     if (!id) {
-      return res.status(400).json({ error: 'City ID is required' });
+      return res.status(400).json({ error: '⚠️ Oops! A city ID is required to proceed.' });
     }
 
     // Remove the city from the search history using the HistoryService
     await HistoryService.removeCity(id);
 
+    // Log successful deletion before responding
+    console.info(`🗑️ City with ID ${id} successfully removed from search history.`);
+
     // Respond with a success message
-    return res.json({ message: 'City removed from search history' });
+    return res.json({ message: '🗑️ City deleted from search history' });
   } catch (error) {
 
     // Handle errors that may occur during the deletion process
-    console.error('Error removing city from search history:', error);
-    return res.status(500).json({ error: 'Failed to remove city from search history' });
+    console.error('❌ Error removing city from search history:', error);
+    return res.status(500).json({ error: '🌧️ We hit a storm! Unable to remove city from search history' });
   }
 });
 
