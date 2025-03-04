@@ -46,5 +46,3 @@ router.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
 
 // Export the router to be used in the main application
 export default router;
-
-{ error: '⚠️ Server error! Something went wrong on our end' });
