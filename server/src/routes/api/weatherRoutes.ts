@@ -1,7 +1,7 @@
 // Filepath to this file: skywatch/server/src/routes/api/weatherRoutes.ts
 
 // Import the modules
-import {  Router, Request, Response, _NextFunction } from 'express';
+import {  Router, Request, Response, NextFunction } from 'express';
 const router = Router();
 
 // Import the services

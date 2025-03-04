@@ -3,7 +3,7 @@
 // Import necessary modules from Node.js and Express
 import path from 'node:path'; // Handles file and directory paths
 import { fileURLToPath } from 'node:url'; // Converts a file URL to a file path
-import { Router, Request, Response, _NextFunction } from 'express'; // Imports Router from Express for defining routes
+import { Router, Request, Response, NextFunction } from 'express'; // Imports Router from Express for defining routes
 
 // Define the __filename and __dirname in an ES module context
 // In CommonJS, __filename and __dirname are available by default, but in ES modules, they need to be manually set
@@ -18,14 +18,18 @@ const router = Router();
 // commented out, was causing errors (see attempted fix below)
 // router.get('/', (_Request, _Response) => {
 
-// attempted fix
-router.get('/', (_Request: Request, _Response: Response) => {
+// attempted fix 
+router.get('/', (_Request: Request, Response: Response) => {
 
   // commented out, was causing errors (see attempted fix below)
   // Serve the index.html file from the public directory
   // res.sendFile(path.join(__dirname, '../../public/index.html'), (err) => {
 
-  // attempted fix
+  // attempted fix 1: (didn't work, trying again)
+  // Serve the index.html file from the public directory
+  // Response.sendFile(path.join(__dirname, '../../client/index.html'), (err: Error) => {
+
+  // attempted fix 2: SUCCESS!!!
   // Serve the index.html file from the public directory
   Response.sendFile(path.join(__dirname, '../../client/index.html'), (err: Error) => {
 
