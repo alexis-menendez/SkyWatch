@@ -22,7 +22,7 @@ class HistoryService {
   private async read() {
 
     // Log attempt before reading
-    console.info('[INFO] Attempting to read from db.json');
+    console.info('Attempting to read from db.json');
 
     // Read the contents of the JSON file and return it as a string
     return await fs.promises.readFile('./db/db.json', 'utf8');
@@ -32,7 +32,7 @@ class HistoryService {
   private async write(cities: City[]) {
 
     // Log attempt before writing
-    console.info('[INFO] Attempting to write to db.json');
+    console.info('Attempting to write to db.json');
 
     // Convert the array of City objects into a JSON string and write to the file
     fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
@@ -50,7 +50,7 @@ class HistoryService {
   async getCities(): Promise<City[]> {
 
     // Log attempt
-    console.info('[INFO] Attempting to retrieve city list from db.json');
+    console.info('Attempting to retrieve city list from db.json');
 
     // Read the file content
     const data = await this.read();
@@ -72,7 +72,7 @@ class HistoryService {
   async addCity(city: string) {
 
   // log attempt
-  console.info(`[INFO] Attempting to add city: "${city}"`);
+  console.info(`Attempting to add city: "${city}"`);
 
     // Create a new City object with a unique ID
     const tempCity = new City(city, uuidv4());
@@ -94,7 +94,7 @@ class HistoryService {
   async removeCity(id: string) {
 
     // log attempt
-    console.info(`[INFO] Attempting to remove city with ID: "${id}"`);
+    console.info(`Attempting to remove city with ID: "${id}"`);
 
     // Retrieve the current list of cities
     const currentCitiesData = await this.getCities();
