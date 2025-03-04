@@ -9,7 +9,7 @@
 // attempted fix
 // Import the necessary modules
 import dotenv from 'dotenv'; // Loads environment variables from a .env file
-import express, { Request, Response, NextFunction } from 'express'; // Import Express types
+import express, { _Router, Request, Response, NextFunction } from 'express'; // Import Express types
 dotenv.config(); // Initialize dotenv to use environment variables
 
 // Import the routes
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true })); // Middleware to parse form dat
 
 // attempted fix
 // log every incoming request
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, _res: Response, next: NextFunction) => {
     console.info(`Received ${req.method} request at ${req.originalUrl}`);
     next();
 });
@@ -56,7 +56,7 @@ app.use(routes); // Use the imported routes to handle incoming requests
 
 // attempted fix
 // log any unhandled errors
-app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error('Error:', err.message);
     res.status(500).json({ message: 'Internal Server Error' });
 });

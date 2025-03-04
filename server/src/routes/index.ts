@@ -1,7 +1,7 @@
 // Filepath to this file: skywatch/server/src/routes/index.ts
 
 // Import the Router module from Express
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 const router = Router(); // Create an instance of the Express Router
 
 // Import route handlers for API and HTML routes
@@ -17,7 +17,7 @@ import htmlRoutes from './htmlRoutes.js'; // Handles routes for serving HTML pag
 
 // attempted fix
 // Log all incoming requests
-router.use((req: Request, res: Response, next: NextFunction) => {
+router.use((req: Request, _res: Response, next: NextFunction) => { // added "_" in front of res, trying to debug
     console.info(`Received ${req.method} request to: ${req.originalUrl}`);
     next();
   });
@@ -39,7 +39,7 @@ router.use('/', htmlRoutes);
 
 // attempted fix
 // Error-handling middleware
-router.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+router.use((err: Error, _req: Request, res: Response, _next: NextFunction) => { // added "_" in front of res & next, trying to debug
     console.error(err);
     res.status(500).send('Internal Server Error');
   });
