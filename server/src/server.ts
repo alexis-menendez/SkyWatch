@@ -21,8 +21,22 @@ app.use(express.static('../client/dist')); // Serve static files (e.g., frontend
 // TODO: Implement middleware for parsing JSON and urlencoded form data
 app.use(express.urlencoded({ extended: true })); // Middleware to parse form data (URL-encoded data)
 
+// log every incoming request
+app.use((req, res, next) => {
+    console.info(`Received ${req.method} request at ${req.originalUrl}`);
+    next();
+  });
+
 // TODO: Implement middleware to connect the routes
 app.use(routes); // Use the imported routes to handle incoming requests
+
+// ADDED: Error-handling middleware to log any unhandled errors
+app.use((err, req, res, next) => {
+    console.error(`⚠️ Oops! An error occurred in server routes: ${err.message}`);
+
+    // respond with a 500 error and an error message
+    return res.status(500).send('⚠️ Server error! Something went wrong on our end');
+  });
 
 // Start the server on the specified port and log a message when it starts
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
