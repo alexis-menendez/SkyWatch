@@ -17,7 +17,19 @@ const router = Router();
 router.get('/', (_req, res) => {
 
   // Serve the index.html file from the public directory
-  res.sendFile(path.join(__dirname, '../../public/index.html'));
+  res.sendFile(path.join(__dirname, '../../public/index.html'), (err) => {
+
+    // Callback function to log success/failure
+    if (err) {
+
+      // Error log if the file fails to send
+      console.error('❌ Error: Could not serve index.html:', err);
+    } else {
+
+      // Success log if index.html is sent successfully
+      console.info('🌤️ Success: index.html was served successfully!');
+    }
+  });
 });
 
 // Export the router so it can be used in other parts of the application
