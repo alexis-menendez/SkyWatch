@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/routes/api/weatherRoutes.ts
+
 // Import the modules
 import { Router } from 'express';
 const router = Router();
@@ -9,7 +11,7 @@ import WeatherService from '../../service/weatherService.js';
 // TODO: POST Request with city name to retrieve weather data
 router.post('/', async (req, res) => {
   try {
-    
+
     // TODO: GET weather data from city name
     // Extract the city name from the request body
     const cityName: string = req.body.cityName;

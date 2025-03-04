@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/service/historyService.ts
+
 // Import the necessary modules
 import fs from 'fs'; // File system module for reading and writing files
 import { v4 as uuidv4 } from 'uuid'; // UUID package to generate unique IDs
@@ -18,7 +20,7 @@ class HistoryService {
 
   // TODO: Define a read method that reads from the searchHistory.json file
   private async read() {
-    
+
     // Read the contents of the JSON file and return it as a string
     return await fs.promises.readFile('./db/db.json', 'utf8');
   }

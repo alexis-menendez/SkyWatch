@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/routes/index.ts
+
 // Import the Router module from Express
 import { Router } from 'express';
 const router = Router(); // Create an instance of the Express Router

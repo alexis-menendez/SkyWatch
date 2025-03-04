@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/server.ts
+
 // Import the necessary modules
 import dotenv from 'dotenv'; // Loads environment variables from a .env file
 import express from 'express'; // Import the Express framework

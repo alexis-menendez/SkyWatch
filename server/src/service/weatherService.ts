@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/service/weatherService.ts
+
 // Import the necessary modules
 import dotenv from 'dotenv'; // Load environment variables from a .env file
 dotenv.config(); // Initialize dotenv to use environment variables
@@ -156,7 +158,7 @@ class WeatherService {
     const dailyForecasts = weatherData.filter((data: any) => data.dt_txt.includes('12:00:00'));
 
     for (const day of dailyForecasts) {
-      
+
       // Add each daily forecast to the array
       weatherForecast.push(new Weather(
         day.main.temp,

@@ -1,3 +1,5 @@
+// Filepath to this file: skywatch/server/src/routes/htmlRoutes.ts
+
 // Import necessary modules from Node.js and Express
 import path from 'node:path'; // Handles file and directory paths
 import { fileURLToPath } from 'node:url'; // Converts a file URL to a file path
@@ -13,7 +15,7 @@ const router = Router();
 
 // TODO: Define route to serve index.html
 router.get('/', (_req, res) => {
-  
+
   // Serve the index.html file from the public directory
   res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
