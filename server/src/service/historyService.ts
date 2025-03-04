@@ -1,15 +1,5 @@
-// import modules
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-
-// resolve __dirname & __filename in ES module scope
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// define the path to the searchHistory.json file
-const historyFilePath = path.join(__dirname, '../../db/db.json');
 
 // TODO: Define a City class with name and id properties
 class City {
@@ -17,143 +7,95 @@ class City {
   id: string;
   constructor(
     name: string,
-    id: string
-  ) {
+    id: string) {
     this.name = name;
     this.id = id;
   }
 }
+// TODO: Complete the HistoryService class  (OUR CRUD Methods)
+class HistoryService {
+  //console.log("HistoryService");
+  // TODO: Define a read method that reads from the searchHistory.json file
+  private async read() {
 
-// TODO: Complete the HistoryService class
-class HistoryService { // Define the HistoryService class
-  
-// TODO: Define a read method that reads from the searchHistory.json file
-private async read(): Promise<string> {
-  try {
-    console.log(`📂 Attempting to read from: ${historyFilePath}`);
-    
-    const data = await fs.readFile(historyFilePath, 'utf8');
+    // ES5 Syntax with and error first callback function
+    return await fs.promises.readFile('./db/db.json', 'utf8');
 
-    if (!data.trim()) {
-      console.warn(`⚠️ Warning: File ${historyFilePath} is empty. Returning an empty array.`);
-      return '[]'; 
-    }
+    /*
+    // ES6 Syntax with a promise based function
+    fs.readFile('somePath', 'utf8')
+      .then(data => {
+        console.log("data: ", data);
+        console.log("type: ", typeof data);
+        return data;
+      })
+      .catch(err => {
+        console.log(err);
+        return err.message;
+      }
+      );
 
-    console.log(`✅ Successfully read from ${historyFilePath}`);
-    return data;
-  } catch (err: any) {
-    if (err.code === 'ENOENT') {
-      console.error(`🚨 Error: File ${historyFilePath} not found. Returning an empty array.`);
-    } else {
-      console.error(`❌ Error reading file ${historyFilePath}:`, err.message);
-    }
-    return '[]';
+    // ES7 Syntax with async/await
+     async function someAsyncFunc() {
+        try {
+          const data = await fs.readFile('somePath', 'utf8');
+          console.log("data: ", data);
+          console.log("type: ", typeof data);
+          return data;
+        } catch (err) {
+          console.log(err);
+          return err.message;
+        }
+      }
+    */
   }
-}
-  
-// TODO: Define a write method that writes the updated cities array to the searchHistory.json file
-private async write(cities: City[]) { // Define the write method
-  try {
-    console.log(`💾 Writing ${cities.length} cities to file "${historyFilePath}"...`);
-    
-    const jsonData = JSON.stringify(cities, null, 2);
-    await fs.writeFile(historyFilePath, jsonData, 'utf8');
-    
-    console.log(`✅ Successfully wrote ${cities.length} cities to "${historyFilePath}"`);
-  } catch (err: any) {
-    if (err.code === 'ENOENT') {
-      console.error(`🚨 File not found: "${historyFilePath}". Make sure the directory exists.`);
-    } else if (err.code === 'EACCES') {
-      console.error(`🚨 Permission denied: Unable to write to "${historyFilePath}". Check file permissions.`);
-    } else if (err.code === 'EMFILE') {
-      console.error(`🚨 Too many open files: Unable to write to "${historyFilePath}". Try closing unused applications or restarting your system.`);
-    } else {
-      console.error(`❌ Error writing to file "${historyFilePath}":`, err.message);
-    }
-    throw new Error(`Failed to write search history. ${err.message}`);
-  }
-}
 
-// TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
-async getCities(): Promise<City[]> {
-  const data = await this.read();
-  try {
-    console.log(`📄 Parsing city data from file: "${historyFilePath}"`);
-    const citiesArray = JSON.parse(data);
-    
-    if (!Array.isArray(citiesArray)) {
-      console.warn(`⚠️ Unexpected data format in "${historyFilePath}". Expected an array but received:`, citiesArray);
+  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
+  private async write(cities: City[]) {
+    fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
+      if (err) {
+        console.log(err);
+        return err.message;
+      } else {
+        console.log('File written successfully\n');
+        //console.log('The written has the following contents:');
+        // console.log(fs.readFileSync('../../db/db.json', 'utf8'));
+        return 'File written successfully';
+      }
+    });
+  }
+
+  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
+  async getCities(): Promise<City[]> {
+    const data = await this.read();
+    console.log("Get Cities: ", data);  // [ {"name": "New York", "id": "1"}, {"name": "Los Angeles", "id": "2"} ]  JSON string of objects
+    // Convert JSON string to array of City objects
+    if (data === undefined) {
       return [];
     }
-    
-    console.log(`✅ Successfully parsed ${citiesArray.length} cities from "${historyFilePath}"`);
+    const citiesArray = JSON.parse(data);
     return citiesArray;
-  } catch (err: any) {
-    console.error(`❌ Error parsing JSON from "${historyFilePath}":`, err.message);
-    return [];
+  }
+
+  // TODO Define an addCity method that adds a city to the searchHistory.json file
+  async addCity(city: string) {
+    // Verify that we RECIEVED the city name (Data)
+    // Create a new City object
+    const tempCity = new City(city, uuidv4());
+
+    // IF we want to ADD and NEW CITY to our ARRAY (Exisitng dataset)
+    const currentCitiesData = await this.getCities();  // [{ name: 'New York', id: '1' }, { name: 'Los Angeles', id: '2' }]
+    currentCitiesData.push(tempCity);   // typoOf JS ARRAY 
+    this.write(currentCitiesData);
+  }
+
+  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
+  async removeCity(id: string) {
+    const currentCitiesData = await this.getCities();
+    const updatedCitiesData = currentCitiesData.filter(city => city.id !== id);
+    await this.write(updatedCitiesData);
+    return updatedCitiesData;
   }
 }
 
-// TODO: Define an addCity method that adds a city to the searchHistory.json file
-async addCity(cityName: string): Promise<City | null> {
-  console.log(`➕ Attempting to add city: "${cityName}"`);
-  
-  const cities = await this.getCities(); // Ensure we get parsed city data
-  
-  if (!Array.isArray(cities)) {
-    console.error(`🚨 Data corruption detected in "${historyFilePath}". Expected an array but found:`, cities);
-    return null;
-  }
-  
-  const cityExists = cities.some(city => city.name.toLowerCase() === cityName.toLowerCase());
-  
-  if (cityExists) {
-    console.warn(`⚠️ City "${cityName}" already exists in "${historyFilePath}". Skipping addition.`);
-    return null; // Return null if city already exists
-  }
-  
-  try {
-    const newCity = new City(cityName, uuidv4());
-    cities.push(newCity);
-    console.log(`✅ New city added: "${cityName}" with ID: ${newCity.id}`);
-    
-    await this.write(cities); // Ensure the data is properly written before returning
-    console.log(`💾 Successfully updated "${historyFilePath}" with new city: "${cityName}"`);
-    
-    return newCity; // Return the newly added city
-  } catch (err: any) {
-    console.error(`❌ Error adding city "${cityName}" to "${historyFilePath}":`, err.message);
-    return null;
-  }
-}
-
-// TODO: Define a removeCity method that removes a city from the searchHistory.json file
-async removeCity(cityId: string): Promise<City[]> {
-  console.log(`🗑️ Attempting to remove city with ID: "${cityId}"`);
-  
-  let cities = await this.getCities(); // Use getCities() for properly parsed data
-  
-  if (!Array.isArray(cities)) {
-    console.error(`🚨 Data corruption detected in "${historyFilePath}". Expected an array but found:`, cities);
-    return cities;
-  }
-  
-  const initialLength = cities.length;
-  cities = cities.filter(city => city.id !== cityId);
-  
-  if (cities.length === initialLength) {
-    console.warn(`⚠️ City with ID "${cityId}" not found in "${historyFilePath}". No changes made.`);
-    return cities;
-  }
-  
-  try {
-    await this.write(cities); // Ensure the file write is completed before returning
-    console.log(`✅ Successfully removed city with ID: "${cityId}" from "${historyFilePath}"`);
-  } catch (err: any) {
-    console.error(`❌ Error removing city with ID "${cityId}" from "${historyFilePath}":`, err.message);
-  }
-  
-  return cities; // Return the updated array of cities
-}
-
-export default new HistoryService(); // Export an instance of the HistoryService class
+export default new HistoryService();
