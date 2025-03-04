@@ -38,7 +38,7 @@ To set up and run this project on your local machine, follow these steps:
 
 1. **Dependencies**:
 	Before installing, ensure you have the following installed on your system:
-	* [Node.js](https://nodejs.org/) installed on your system
+	* [Node.js](https://nodejs.org/)
 	* npm (Comes bundled with Node.js)
 	* TypeScript (Installed as a dependency in this project)
    
