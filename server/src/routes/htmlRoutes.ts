@@ -3,7 +3,7 @@
 // Import necessary modules from Node.js and Express
 import path from 'node:path'; // Handles file and directory paths
 import { fileURLToPath } from 'node:url'; // Converts a file URL to a file path
-import { Router, Request, Response, NextFunction } from 'express'; // Imports Router from Express for defining routes
+import { Router, Request, Response, NextFunction as _NextFunction } from 'express'; // Imports Router from Express for defining routes
 
 // Define the __filename and __dirname in an ES module context
 // In CommonJS, __filename and __dirname are available by default, but in ES modules, they need to be manually set

@@ -9,7 +9,7 @@
 // attempted fix
 // Import the necessary modules
 import dotenv from 'dotenv'; // Loads environment variables from a .env file
-import express, { Router, Request, Response, NextFunction } from 'express'; // Import Express types
+import express, { Router as _Router, Request, Response, NextFunction } from 'express'; // Import Express types
 dotenv.config(); // Initialize dotenv to use environment variables
 
 // Import the routes
