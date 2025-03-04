@@ -1,22 +1,23 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import dayjs, { type Dayjs } from 'dayjs';
+// Import the necessary modules
+import dotenv from 'dotenv'; // Load environment variables from a .env file
+dotenv.config(); // Initialize dotenv to use environment variables
+import dayjs, { type Dayjs } from 'dayjs'; // Import dayjs for handling date formatting
 
 // TODO: Define an interface for the Coordinates object
 interface Coordinates {
-  lat: number;
-  lon: number;
+  lat: number; // Latitude of the location
+  lon: number; // Longitude of the location
 }
 
 // TODO: Define a class for the Weather object
 class Weather {
-  tempF: number;
-  humidity: number;
-  windSpeed: number;
-  icon: string;
-  date: Dayjs | string;
-  city: string;
-  iconDescription: string;
+  tempF: number; // Temperature in Fahrenheit
+  humidity: number; // Humidity percentage
+  windSpeed: number; // Wind speed in miles per hour
+  icon: string; // Weather condition icon code
+  date: Dayjs | string; // Date of the weather forecast
+  city: string; // City name for which the weather is fetched
+  iconDescription: string; // Description of the weather condition
 
   constructor(
     tempF: number,
@@ -39,10 +40,11 @@ class Weather {
 
 // TODO: Complete the WeatherService class
 class WeatherService {
+
   // TODO: Define the baseURL, API key, and city name properties
-  private baseURL: string = process.env.API_BASE_URL || '';
-  private apiKey: string = process.env.API_KEY || '';
-  private cityName?: string; // Ensure this is always a string
+  private baseURL: string = process.env.API_BASE_URL || ''; // Base URL for the weather API
+  private apiKey: string = process.env.API_KEY || ''; // API key for authentication
+  private cityName?: string; // City name for which weather data is requested
 
   constructor() {
     if (!this.baseURL || !this.apiKey) {
@@ -53,6 +55,8 @@ class WeatherService {
   // TODO: Create fetchLocationData method
   private async fetchLocationData(query: string): Promise<Coordinates> {
     try {
+
+      // Fetch location data from the API
       const response = await fetch(query);
       
       if (!response.ok) {
@@ -66,6 +70,7 @@ class WeatherService {
         throw new Error("No location data found for the given city.");
       }
 
+      // Extract latitude and longitude from API response
       const { lat, lon } = data[0];
       return { lat, lon };
     } catch (error: any) {
@@ -76,19 +81,23 @@ class WeatherService {
 
   // TODO: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
+
+    // Construct the API query to fetch latitude and longitude of a city
     return `${this.baseURL}geo/1.0/direct?q=${this.cityName}&limit=1&appid=${this.apiKey}`;
   }
 
   // TODO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
+
+    // Construct the API query to fetch weather data based on coordinates
     return `${this.baseURL}data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${this.apiKey}&units=imperial`;
   }
 
   // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData(): Promise<Coordinates> {
     try {
-      const geoQuery = this.buildGeocodeQuery();
-      return await this.fetchLocationData(geoQuery);
+      const geoQuery = this.buildGeocodeQuery(); // Build the geolocation API query
+      return await this.fetchLocationData(geoQuery); // Fetch location data
     } catch (error: any) {
       console.error("❌ Error fetching and destructuring location data:", error.message);
       throw error;
@@ -98,8 +107,8 @@ class WeatherService {
   // TODO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates): Promise<any> {
     try {
-      const weatherQuery = this.buildWeatherQuery(coordinates);
-      const response = await fetch(weatherQuery);
+      const weatherQuery = this.buildWeatherQuery(coordinates); // Build weather API query
+      const response = await fetch(weatherQuery); // Fetch weather data from API
 
       if (!response.ok) {
         throw new Error(`Failed to fetch weather data: ${response.statusText}`);
@@ -124,9 +133,10 @@ class WeatherService {
       throw new Error("Weather data is empty.");
     }
 
-    const data = response.list[0];
-    const parsedDate = dayjs.unix(data.dt).format('MM/DD/YYYY');
+    const data = response.list[0]; // Extract the most recent weather data
+    const parsedDate = dayjs.unix(data.dt).format('MM/DD/YYYY'); // Format the date
 
+    // Create a Weather object using API response data
     return new Weather(
       data.main.temp,
       data.main.humidity,
@@ -140,12 +150,14 @@ class WeatherService {
 
   // TODO: Complete buildForecastArray method
   private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
-    const weatherForecast: Weather[] = [currentWeather];
+    const weatherForecast: Weather[] = [currentWeather]; // Initialize the forecast array with current weather
 
-    // Filter for specific daily forecasts at 12:00 PM
+    // Filter API response to get specific daily forecasts at 12:00 PM
     const dailyForecasts = weatherData.filter((data: any) => data.dt_txt.includes('12:00:00'));
 
     for (const day of dailyForecasts) {
+      
+      // Add each daily forecast to the array
       weatherForecast.push(new Weather(
         day.main.temp,
         day.main.humidity,
@@ -157,13 +169,13 @@ class WeatherService {
       ));
     }
 
-    return weatherForecast;
+    return weatherForecast; // Return the array containing the full weather forecast
   }
 
   // TODO: Complete getWeatherForCity method
   async getWeatherForCity(city: string): Promise<Weather[]> {
     try {
-      this.cityName = city;
+      this.cityName = city; // Set the city name for the request
 
       console.log(`📍 Fetching weather data for: ${city}`);
 
@@ -173,10 +185,10 @@ class WeatherService {
       // Step 2: Fetch weather data using coordinates
       const weatherData = await this.fetchWeatherData(coordinates);
 
-      // Step 3: Parse current weather
+      // Step 3: Parse current weather conditions
       const currentWeather = this.parseCurrentWeather(weatherData);
 
-      // Step 4: Build the 5-day forecast
+      // Step 4: Build the 5-day forecast and return it
       return this.buildForecastArray(currentWeather, weatherData.list);
     } catch (error: any) {
       console.error(`❌ Error retrieving weather for city (${city}):`, error.message);
@@ -185,4 +197,5 @@ class WeatherService {
   }
 }
 
+// Export an instance of the WeatherService class for use in other parts of the application
 export default new WeatherService();
