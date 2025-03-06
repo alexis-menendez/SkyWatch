@@ -34,7 +34,7 @@ SkyWatch is a weather dashboard application that allows users to retrieve curren
 
 ## Installation
 
-To set up and run this project on your local machine, follow these steps:
+This application is [live](https://skywatch-ldos.onrender.com), but you can also install it on your own machine. To set up and run this project on your local machine, follow these steps:
 
 1. **Dependencies**:
 	Before installing, ensure you have the following installed on your system:
@@ -104,7 +104,7 @@ This project is deployed on [Render](https://render.com/) to make it accessible 
 
 ### Live Application
 You can access the deployed SkyWatch application here:  
-🔗 **[SkyWatch Live Deployment](https://skywatch-bmda.onrender.com/)**  
+🔗 **[SkyWatch Live Deployment](https://skywatch-ldos.onrender.com)**  
 
 ### How Deployment Works
 - The backend (server) is deployed as a **Render Web Service**.
@@ -113,7 +113,7 @@ You can access the deployed SkyWatch application here:
 
 ## Walkthrough Video
 
-* [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
+* [Walkthrough Video](https://drive.google.com/file/d/1dr1HyYSLKDxHYF2UWODZnPXJN0PXsbxO/view?usp=drive_link)
 
 ## API Calls
 
@@ -147,17 +147,22 @@ There are currently no automated tests for this project
 * [Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)
 * [Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)
 * [Project Repository](https://github.com/alexis-menendez/SkyWatch)
-* [Live Deployment](https://skywatch-bmda.onrender.com/)
-* [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
+* [Live Deployment](https://skywatch-ldos.onrender.com)
+* [Walkthrough Video](https://drive.google.com/file/d/1dr1HyYSLKDxHYF2UWODZnPXJN0PXsbxO/view?usp=drive_link)
 
 ## Acknowledgements
 
-* I enlisted the help of a friend (and former participant of this bootcamp) to help me when I hit snags.
-* I used Github Copilot to help me write the code for this project, primarily its suggestive text feature which enabled me to write code faster.
-* I also used ChatGPT to:
+1. I used Github Copilot to help me write the code for this project, primarily its suggestive text feature which enabled me to write code faster.
+
+2. I also used ChatGPT to:
   	* Provide assitance debugging my code. I am happy to provide transcripts of the conversation with ChatGPT upon request.
   	* Review my completed project and offer suggestions for improvement.
   	* Create detailed explanations for certain concepts which informed my writing.
+  	* Create comments explaining parts of my code (this ended up being more of a bane than a boon as it also rewrote sections of my code without me realizing which broke things, lesson learned!)
+
+3. I enlisted the help of a friend (and former participant of this bootcamp) to help me when I hit snags.
+
+4. Lastly, I literally could not have completed this project without help from Robin ([Zomblic](https://github.com/zomblic)), a fellow bootcamper and the savior of my sanity. She quickly found the syntax errors in my code that were breaking everything and helped me get up and running. Couldn't have done it without her!
 
 ## Contact
 
