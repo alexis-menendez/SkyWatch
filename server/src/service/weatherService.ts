@@ -198,6 +198,7 @@ class WeatherService {
 
       console.log(`🌦️ Fetching weather data for: ${city}`);
 
+      // This entire section is from Copilot, not sure if it works, can't check because *nothing* works omg
       // 1. Get coordinates for the city
       const coordinates = await this.fetchAndDestructureLocationData();
 
