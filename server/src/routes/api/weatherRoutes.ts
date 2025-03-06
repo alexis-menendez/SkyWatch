@@ -10,11 +10,8 @@ import WeatherService from '../../service/weatherService.js';
 
 // TODO: POST Request with city name to retrieve weather data
 
-// commented out, was causing errors (see attempted fix below)
-//router.post('/', async (req, res) => {
+ router.post('/', async (req, res) => {
 
-// attempted fix
-router.post('/', async (req: Request, res: Response) => {
   try {
 
     // TODO: GET weather data from city name
@@ -78,7 +75,7 @@ router.get('/history', async (_req: Request, res: Response) => {
 // router.delete('/history/:id', async (req, res) => {
 
 // attempted fix
-router.delete('/history/:id', async (req: Request, res: Response) => {
+router.delete('/history/:id', async (req, res) => {
   try {
 
     // Extract the city ID from the request parameters
