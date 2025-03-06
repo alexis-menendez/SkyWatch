@@ -113,7 +113,7 @@ You can access the deployed SkyWatch application here:
 
 ## Walkthrough Video
 
-* [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
+* [Walkthrough Video](https://drive.google.com/file/d/1dr1HyYSLKDxHYF2UWODZnPXJN0PXsbxO/view?usp=drive_link)
 
 ## API Calls
 
@@ -148,7 +148,7 @@ There are currently no automated tests for this project
 * [Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)
 * [Project Repository](https://github.com/alexis-menendez/SkyWatch)
 * [Live Deployment](https://skywatch-ldos.onrender.com)
-* [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
+* [Walkthrough Video](https://drive.google.com/file/d/1dr1HyYSLKDxHYF2UWODZnPXJN0PXsbxO/view?usp=drive_link)
 
 ## Acknowledgements
 
