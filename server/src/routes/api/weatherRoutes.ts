@@ -9,13 +9,11 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 // TODO: POST Request with city name to retrieve weather data
-
  router.post('/', async (req, res) => {
 
   try {
 
     // TODO: GET weather data from city name
-    // Extract the city name from the request body
     const cityName: string = req.body.cityName;
     console.log("🌦️ Attempting to retrieve weather data for city:", cityName);
 
@@ -28,7 +26,6 @@ import WeatherService from '../../service/weatherService.js';
     const weatherData = await WeatherService.getWeatherForCity(cityName);
 
     // TODO: save city to search history
-    // Add the searched city name to the search history
     await HistoryService.addCity(cityName);
 
     // Log successful retrieval before responding
@@ -45,11 +42,6 @@ import WeatherService from '../../service/weatherService.js';
 });
 
 // TODO: GET search history
-
-// commented out, was causing errors (see attempted fix below)
-// router.get('/history', async (_req, res) => {
-
-// attempted fix
 router.get('/history', async (_req, res) => {
   try {
 
@@ -70,11 +62,6 @@ router.get('/history', async (_req, res) => {
 });
 
 // TODO: DELETE city from search history
-
-// commented out, was causing errors (see attempted fix below)
-// router.delete('/history/:id', async (req, res) => {
-
-// attempted fix
 router.delete('/history/:id', async (req, res) => {
   try {
 

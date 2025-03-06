@@ -32,11 +32,6 @@ class HistoryService {
   private async write(cities: City[]) {
 
     // Convert the array of City objects into a JSON string and write to the file
-    
-    // commented out, was causing errors (see attempted fix below)
-    // fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
-    
-    // attempted fix
     fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
       if (err) {
         console.log(err);
@@ -64,7 +59,7 @@ class HistoryService {
     }
     const citiesArray = JSON.parse(data);
 
-    // ADDED: Log success
+    // Log success
     console.info('✅ Success: Successfully parsed city list from db.json');
 
     return citiesArray;

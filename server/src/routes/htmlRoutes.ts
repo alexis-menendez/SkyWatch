@@ -1,34 +1,18 @@
 // Filepath to this file: skywatch/server/src/routes/htmlRoutes.ts
 
 
-import path from 'node:path'; // Handles file and directory paths
-import { fileURLToPath } from 'node:url'; // Converts a file URL to a file path
-import { Router } from 'express'; // Imports Router from Express for defining routes
+import path from 'node:path'; 
+import { fileURLToPath } from 'node:url'; 
+import { Router } from 'express'; 
 
 
-const __filename = fileURLToPath(import.meta.url); // Gets the file path of the current module
-const __dirname = path.dirname(__filename); // Extracts the directory name from the file path
-
-// Create an instance of the Express Router to define routes
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = path.dirname(__filename); 
 const router = Router();
 
 // TODO: Define route to serve index.html
-
-// commented out, was causing errors (see attempted fix below)
-// router.get('/', (_Request, _Response) => {
-
-// attempted fix 
 router.get('/', (_req, res) => {
 
-  // commented out, was causing errors (see attempted fix below)
-  // Serve the index.html file from the public directory
-  // res.sendFile(path.join(__dirname, '../../public/index.html'), (err) => {
-
-  // attempted fix 1: (didn't work, trying again)
-  // Serve the index.html file from the public directory
-  // Response.sendFile(path.join(__dirname, '../../client/index.html'), (err: Error) => {
-
-  // attempted fix 2: SUCCESS!!!
   // Serve the index.html file from the public directory
   res.sendFile(path.join(__dirname, '../../client/index.html'), (err: Error) => {
 

@@ -1,25 +1,25 @@
 // Filepath to this file: skywatch/server/src/service/weatherService.ts
 
 // Import the necessary modules
-import dotenv from 'dotenv'; // Load environment variables from a .env file
-dotenv.config(); // Initialize dotenv to use environment variables
-import dayjs, { type Dayjs } from 'dayjs'; // Import dayjs for handling date formatting
+import dotenv from 'dotenv'; 
+dotenv.config(); 
+import dayjs, { type Dayjs } from 'dayjs'; 
 
 // TODO: Define an interface for the Coordinates object
 interface Coordinates {
-  lat: number; // Latitude of the location
-  lon: number; // Longitude of the location
+  lat: number; 
+  lon: number; 
 }
 
 // TODO: Define a class for the Weather object
 class Weather {
-  tempF: number; // Temperature in Fahrenheit
-  humidity: number; // Humidity percentage
-  windSpeed: number; // Wind speed in miles per hour
-  icon: string; // Weather condition icon code
-  date: Dayjs | string; // Date of the weather forecast
-  city: string; // City name for which the weather is fetched
-  iconDescription: string; // Description of the weather condition
+  tempF: number; 
+  humidity: number; 
+  windSpeed: number; 
+  icon: string; 
+  date: Dayjs | string; 
+  city: string; 
+  iconDescription: string; 
 
   constructor(
     tempF: number,
@@ -44,9 +44,9 @@ class Weather {
 class WeatherService {
 
   // TODO: Define the baseURL, API key, and city name properties
-  private baseURL: string = process.env.API_BASE_URL || ''; // Base URL for the weather API
-  private apiKey: string = process.env.API_KEY || ''; // API key for authentication
-  private cityName?: string; // City name for which weather data is requested
+  private baseURL: string = process.env.API_BASE_URL || ''; 
+  private apiKey: string = process.env.API_KEY || ''; 
+  private cityName?: string; 
 
   constructor() {
     if (!this.baseURL || !this.apiKey) {
@@ -101,12 +101,12 @@ class WeatherService {
   // TODO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData(): Promise<Coordinates> {
     try {
-      const geoQuery = this.buildGeocodeQuery(); // Build the geolocation API query
+      const geoQuery = this.buildGeocodeQuery(); 
 
     // log success after successful fetch
     console.info("✅ Success: Coordinates retrieved and destructured.");
 
-      return await this.fetchLocationData(geoQuery); // Fetch location data
+      return await this.fetchLocationData(geoQuery); 
     } catch (error: any) {
       console.error("❌ Error: Failed fetching and destructuring location data:", error.message);
       throw error;
@@ -116,8 +116,8 @@ class WeatherService {
   // TODO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates): Promise<any> {
     try {
-      const weatherQuery = this.buildWeatherQuery(coordinates); // Build weather API query
-      const response = await fetch(weatherQuery); // Fetch weather data from API
+      const weatherQuery = this.buildWeatherQuery(coordinates); 
+      const response = await fetch(weatherQuery); 
 
       if (!response.ok) {
         throw new Error(`❌ Error: Failed to fetch weather data: ${response.statusText}`);
@@ -145,8 +145,8 @@ class WeatherService {
       throw new Error("❌ Error: Weather data is empty.");
     }
 
-    const data = response.list[0]; // Extract the most recent weather data
-    const parsedDate = dayjs.unix(data.dt).format('MM/DD/YYYY'); // Format the date
+    const data = response.list[0]; 
+    const parsedDate = dayjs.unix(data.dt).format('MM/DD/YYYY'); 
 
     // log success prior to creating the Weather object
     console.info("✅ Success: Successfully parsed current weather data.");
@@ -165,10 +165,9 @@ class WeatherService {
 
   // TODO: Complete buildForecastArray method
   private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
-    const weatherForecast: Weather[] = [currentWeather]; // Initialize the forecast array with current weather
+    const weatherForecast: Weather[] = [currentWeather];
 
     // Filter API response to get specific daily forecasts at 12:00 PM
-    // Tried something else first, didn't work. Trying this now? It's a Copilot suggestion so idk uuuhhgggg
     const dailyForecasts = weatherData.filter((data: any) => data.dt_txt.includes('12:00:00'));
 
     for (const day of dailyForecasts) {
@@ -188,17 +187,16 @@ class WeatherService {
     // log success after building the forecast array
     console.info(`✅ Success: Built a forecast array with ${weatherForecast.length} entries.`);
 
-    return weatherForecast; // Return the array containing the full weather forecast
+    return weatherForecast;
   }
 
   // TODO: Complete getWeatherForCity method
   async getWeatherForCity(city: string): Promise<Weather[]> {
     try {
-      this.cityName = city; // Set the city name for the request
+      this.cityName = city;
 
       console.log(`🌦️ Fetching weather data for: ${city}`);
 
-      // This entire section is from Copilot, not sure if it works, can't check because *nothing* works omg
       // 1. Get coordinates for the city
       const coordinates = await this.fetchAndDestructureLocationData();
 
