@@ -9,7 +9,7 @@
 // attempted fix
 // Import the necessary modules
 import dotenv from 'dotenv'; // Loads environment variables from a .env file
-import express, { Router as _Router, Request, Response, NextFunction } from 'express'; // Import Express types
+import express, { Router as _Router, Request as _Reqeust, Response as _Response, NextFunction as _NextFunction } from 'express'; // Import Express types
 dotenv.config(); // Initialize dotenv to use environment variables
 
 // Import the routes
@@ -35,12 +35,12 @@ app.use(express.urlencoded({ extended: true })); // Middleware to parse form dat
     // next();
   // });
 
-// attempted fix
+// attempted fix, commented out to see if it stops throwing 500 error (3/5/2025)
 // log every incoming request
-app.use((req: Request, _res: Response, next: NextFunction) => {
-    console.info(`Received ${req.method} request at ${req.originalUrl}`);
-    next();
-});
+// app.use((req: Request, _res: Response, next: NextFunction) => {
+    // console.info(`Received ${req.method} request at ${req.originalUrl}`);
+    // next();
+// });
 
 // TODO: Implement middleware to connect the routes
 app.use(routes); // Use the imported routes to handle incoming requests
@@ -54,12 +54,12 @@ app.use(routes); // Use the imported routes to handle incoming requests
     // return res.status(500).send('⚠️ Server error! Something went wrong on our end');
 // });
 
-// attempted fix
+// attempted fix, commented out to see if it stops throwing 500 error (3/5/2025)
 // log any unhandled errors
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error('Error:', err.message);
-    res.status(500).json({ message: 'Internal Server Error' });
-});
+// app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    // console.error('Error:', err.message);
+    // res.status(500).json({ message: 'Internal Server Error' });
+// });
 
 // Start the server on the specified port and log a message when it starts
 app.listen(PORT, () => 
