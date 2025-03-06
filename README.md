@@ -104,7 +104,7 @@ This project is deployed on [Render](https://render.com/) to make it accessible 
 
 ### Live Application
 You can access the deployed SkyWatch application here:  
-🔗 **[SkyWatch Live Deployment](https://your-app-name.onrender.com)**  
+🔗 **[SkyWatch Live Deployment](https://skywatch-bmda.onrender.com/)**  
 
 ### How Deployment Works
 - The backend (server) is deployed as a **Render Web Service**.
@@ -147,7 +147,7 @@ There are currently no automated tests for this project
 * [Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)
 * [Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)
 * [Project Repository](https://github.com/alexis-menendez/SkyWatch)
-* [Live Deployment](https://your-app-name.onrender.com)
+* [Live Deployment](https://skywatch-bmda.onrender.com/)
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
 
 ## Acknowledgements
