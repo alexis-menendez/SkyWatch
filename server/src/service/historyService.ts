@@ -1,8 +1,8 @@
 // Filepath to this file: skywatch/server/src/service/historyService.ts
 
 // Import the necessary modules
-import fs from 'fs'; // File system module for reading and writing files
-import { v4 as uuidv4 } from 'uuid'; // UUID package to generate unique IDs
+import fs from 'fs'; 
+import { v4 as uuidv4 } from 'uuid'; 
 
 // TODO: Define a City class with name and id properties
 class City {
@@ -31,16 +31,13 @@ class HistoryService {
   // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
   private async write(cities: City[]) {
 
-    // Log attempt before writing
-    console.info('Attempting to write to db.json');
-
     // Convert the array of City objects into a JSON string and write to the file
     
     // commented out, was causing errors (see attempted fix below)
     // fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
     
     // attempted fix
-    fs.writeFile('./db/db.json', JSON.stringify(cities), (err: NodeJS.ErrnoException | null) => {
+    fs.writeFile('./db/db.json', JSON.stringify(cities), (err) => {
       if (err) {
         console.log(err);
         return err.message;
