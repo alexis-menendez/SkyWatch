@@ -168,6 +168,7 @@ class WeatherService {
     const weatherForecast: Weather[] = [currentWeather]; // Initialize the forecast array with current weather
 
     // Filter API response to get specific daily forecasts at 12:00 PM
+    // Tried something else first, didn't work. Trying this now? It's a Copilot suggestion so idk uuuhhgggg
     const dailyForecasts = weatherData.filter((data: any) => data.dt_txt.includes('12:00:00'));
 
     for (const day of dailyForecasts) {
