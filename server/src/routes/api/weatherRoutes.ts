@@ -1,7 +1,7 @@
 // Filepath to this file: skywatch/server/src/routes/api/weatherRoutes.ts
 
 // Import the modules
-import {  Router, Request, Response, NextFunction as _NextFunction } from 'express';
+import { Router } from 'express';
 const router = Router();
 
 // Import the services
@@ -50,7 +50,7 @@ import WeatherService from '../../service/weatherService.js';
 // router.get('/history', async (_req, res) => {
 
 // attempted fix
-router.get('/history', async (_req: Request, res: Response) => {
+router.get('/history', async (_req, res) => {
   try {
 
     // Retrieve the list of searched cities from the HistoryService
